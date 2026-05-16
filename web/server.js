@@ -10,9 +10,11 @@ const WORKER_URL = process.env.WORKER_URL;
 const app = express();
 
 if (WORKER_URL) {
+  // Mount on root with pathFilter so the full /api/... path reaches the Worker.
+  // Using app.use('/api', ...) would strip the prefix before forwarding.
   app.use(
-    '/api',
     createProxyMiddleware({
+      pathFilter: '/api',
       target: WORKER_URL,
       changeOrigin: true,
       proxyTimeout: 600_000,
