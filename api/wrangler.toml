@@ -1,0 +1,35 @@
+name = "la-galeria-api"
+main = "src/index.ts"
+compatibility_date = "2025-01-15"
+compatibility_flags = ["nodejs_compat"]
+
+# CORS-friendly: serve the frontend from Pages, the API lives here.
+# Replace `*` in ALLOWED_ORIGIN once you know your Pages URL.
+[vars]
+ALLOWED_ORIGIN = "*"
+PUBLIC_BASE_URL = "http://localhost:8787"
+
+# R2 bucket binding — created via `wrangler r2 bucket create la-galeria`
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "la-galeria"
+preview_bucket_name = "la-galeria"
+
+# D1 metadata DB — created via `wrangler d1 create la-galeria`
+# Paste the database_id returned by that command below.
+[[d1_databases]]
+binding = "DB"
+database_name = "la-galeria"
+database_id = "26406a2f-bad1-4a61-a8f9-ea78ebe96bb1"
+migrations_dir = "migrations"
+
+# Secrets (set via `wrangler secret put <NAME>`):
+#   ADMIN_KEY              -- gates /api/admin/* routes
+#   R2_ACCOUNT_ID          -- Cloudflare account id (for S3 presigning)
+#   R2_ACCESS_KEY_ID       -- R2 API token, read+write on this bucket
+#   R2_SECRET_ACCESS_KEY   -- matching secret
+#
+# For local dev, put the same values in a `.dev.vars` file next to this one.
+
+[dev]
+port = 8787

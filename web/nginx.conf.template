@@ -1,0 +1,27 @@
+server {
+    listen 80;
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # Proxy all /api/* requests to the Cloudflare Worker.
+    # $WORKER_URL is substituted at container startup (e.g. https://la-galeria-api.workers.dev).
+    location /api/ {
+        proxy_pass $WORKER_URL/api/;
+        proxy_http_version 1.1;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # Allow large video uploads (up to 5 GB)
+        client_max_body_size 5g;
+        proxy_request_buffering off;
+        proxy_read_timeout 600s;
+        proxy_send_timeout 600s;
+    }
+
+    # SPA fallback — always return index.html for unmatched paths
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}

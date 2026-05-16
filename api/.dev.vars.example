@@ -1,0 +1,8 @@
+# Copy to `.dev.vars` and fill in real values for `wrangler dev`.
+# Do NOT commit `.dev.vars` to git.
+
+ADMIN_KEY=dev-key
+R2_ACCOUNT_ID=replace-with-r2-account-id
+R2_ACCESS_KEY_ID=replace-with-r2-access-key-id
+R2_SECRET_ACCESS_KEY=replace-with-r2-secret-access-key
+CF_API_TOKEN=replace-with-cloudflare-api-token

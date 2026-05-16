@@ -1,0 +1,21 @@
+{
+  "name": "la-galeria-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:migrate:local": "wrangler d1 migrations apply la-galeria --local",
+    "db:migrate:remote": "wrangler d1 migrations apply la-galeria --remote"
+  },
+  "dependencies": {
+    "aws4fetch": "^1.0.20",
+    "client-zip": "^2.4.5"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250101.0",
+    "typescript": "^5.6.3",
+    "wrangler": "^3.95.0"
+  }
+}
